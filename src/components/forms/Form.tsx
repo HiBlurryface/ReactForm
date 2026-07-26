@@ -1,4 +1,5 @@
 import { Button } from "../ui/Button"
+import { DatePicker } from "../ui/DatePicker"
 import { Input } from "../ui/Input"
 import { Select } from "../ui/Select"
 import { TextArea } from "../ui/TextArea"
@@ -18,16 +19,16 @@ export const Form = () => {
     />
 
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-      <Input
-        name="title"
-        label="Nazwa wydarzenia"
-        placeholder="Niesamowita nazwa wydarzenia"
+      <DatePicker
+        name="startEvent"
+        label="Początek"
+        placeholder="0000-00-00"
       />
 
-      <Input
-        name="description"
-        label="Opis wydarzenia"
-        placeholder="Niesamowity opis wydarzenia"
+      <DatePicker
+        name="startEvent"
+        label="Koniec"
+        placeholder="0000-00-00"
       />
     </div>
 
