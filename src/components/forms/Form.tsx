@@ -19,8 +19,12 @@ export const Form = () => {
   } = useForm<EventFormType>({
     resolver: yupResolver(EventFormSchema),
     defaultValues: {
+      name: "",
+      surname: "",
+      email: "",
       title: "",
       description: "",
+      price: 0,
       start: "",
       end: "",
       type: "",
@@ -39,6 +43,31 @@ export const Form = () => {
   }
 
   return <form className="space-y-6" onSubmit={handleSubmit(sendEvent)}>
+    <div className="space-y-6 mb-12 pb-12 border-b border-gray-200">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <Input
+          label="Imię prowadzącego"
+          placeholder="Jason"
+          {...register('name')}
+          error={errors.name?.message}
+        />
+
+        <Input
+          label="Nazwisko"
+          placeholder="Statham"
+          {...register('surname')}
+          error={errors.surname?.message}
+        />
+      </div>
+
+      <Input
+        label="Email"
+        placeholder="jason@gmail.com"
+        {...register('email')}
+        error={errors.email?.message}
+      />
+    </div>
+
     <Input
       label="Nazwa wydarzenia"
       placeholder="Niesamowita nazwa wydarzenia"
@@ -51,6 +80,26 @@ export const Form = () => {
       placeholder="Niesamowity opis wydarzenia"
       {...register('description')}
       error={errors.description?.message}
+    />
+
+    <Input
+      inputMode="numeric"
+      label="Cena wydarzenia ( w złotych )"
+      placeholder="300"
+      error={errors.price?.message}
+      {...register("price", {
+        valueAsNumber: true,
+        onChange: (e) => {
+          const value = e.target.value;
+
+          if (value.length > 1 && value.startsWith("0")) {
+            e.target.value = "0";
+            return;
+          }
+
+          e.target.value = value.replace(/\D/g, "");
+        },
+      })}
     />
 
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">

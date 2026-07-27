@@ -2,12 +2,26 @@ import * as yup from 'yup';
 
 export const EventFormSchema = yup
   .object({
+    name: yup
+      .string()
+      .required('Imię jest obowiązkowe'),
+    surname: yup
+      .string()
+      .required('Nazwisko jest obowiązkowe'),
+    email: yup
+      .string()
+      .required('Email jest obowiązkowy')
+      .email('Wprowadź poprawny adres e-mail'),
     title: yup
       .string()
       .required('Nazwa jest obowiązkowa'),
     description: yup
       .string()
       .required('Opis jest obowiązkowy'),
+    price: yup
+      .number()
+      .typeError("Cena musi być liczbą")
+      .min(0, "Cena nie może być mniejsza niż 0"),
     start: yup
       .string()
       .required('Data początku jest obowiązkowa'),
