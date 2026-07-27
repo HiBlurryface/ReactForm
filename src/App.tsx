@@ -1,5 +1,4 @@
 import { Form } from './components/forms/Form';
-import { Modal } from './components/ui/Modal';
 import { Footer } from './components/widgets/Footer';
 import { Header } from './components/widgets/Header';
 import './index.css';

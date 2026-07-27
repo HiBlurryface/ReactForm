@@ -15,6 +15,7 @@ export const Form = () => {
   const {
     register,
     control,
+    setValue,
     watch,
     reset,
     handleSubmit,
@@ -125,6 +126,7 @@ export const Form = () => {
           control={control}
           render={({ field }) => (
             <DatePicker
+              ref={field.ref}
               name="startEvent"
               label="Początek"
               placeholder="0000-00-00"
@@ -140,6 +142,7 @@ export const Form = () => {
           control={control}
           render={({ field }) => (
             <DatePicker
+              ref={field.ref}
               name="endEvent"
               label="Koniec"
               placeholder="0000-00-00"
@@ -171,19 +174,21 @@ export const Form = () => {
               label="Kod pocztowy"
               placeholder="32-001"
               error={errors.postalCode?.message}
-              {...register("postalCode", {
-                onChange: (e) => {
-                  let value = e.target.value.replace(/\D/g, "");
+              {...register("postalCode")}
+              onChange={(e) => {
+                let value = e.target.value.replace(/\D/g, "");
 
-                  value = value.slice(0, 5);
+                value = value.slice(0, 5);
 
-                  if (value.length > 2) {
-                    value = `${value.slice(0, 2)}-${value.slice(2)}`;
-                  }
+                if (value.length > 2) {
+                  value = `${value.slice(0, 2)}-${value.slice(2)}`;
+                }
 
-                  e.target.value = value;
-                },
-              })}
+                setValue("postalCode", value, {
+                  shouldValidate: true,
+                  shouldDirty: true,
+                });
+              }}
             />
           </div>
           <Input
