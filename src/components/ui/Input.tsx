@@ -1,4 +1,5 @@
 import { forwardRef, type InputHTMLAttributes } from "react"
+import { ErrorMessage } from "./ErrorMessage";
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   name: string,
@@ -13,14 +14,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
   ...props
 }, ref) => {
 
-  return <div>
+  return <div className="flex flex-col justify-between h-full">
     <div className="flex justify-between gap-3">
       <label htmlFor={name} className="block text-sm font-medium leading-6 text-gray-900">
         {label}
       </label>
-      {error !== undefined && <p className="block text-sm font-medium leading-6 text-red-600">
-        {error}
-      </p>}
+      {error !== undefined && <ErrorMessage message={error} />}
     </div>
     <div className="mt-3">
       <input

@@ -1,4 +1,5 @@
 import { forwardRef, type SelectHTMLAttributes } from "react"
+import { ErrorMessage } from "./ErrorMessage";
 
 type Option = {
   id: number,
@@ -25,9 +26,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
       <label htmlFor={name} className="block text-sm font-medium leading-6 text-gray-900">
         {label}
       </label>
-      {error !== undefined && <p className="block text-sm font-medium leading-6 text-red-600">
-        {error}
-      </p>}
+      {error !== undefined && <ErrorMessage message={error} />}
     </div>
     <div className="mt-3">
       <select

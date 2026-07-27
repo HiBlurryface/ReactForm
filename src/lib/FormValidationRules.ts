@@ -10,10 +10,23 @@ export const EventFormSchema = yup
       .required('Opis jest obowiązkowy'),
     start: yup
       .string()
-      .required('Error'),
+      .required('Data początku jest obowiązkowa'),
     end: yup
       .string()
-      .required('Error'),
+      .required('Data zakończenia jest obowiązkowa')
+      .test(
+        'end-after-start',
+        'Data zakończenia musi być późniejsza niż data rozpoczęcia',
+        function (value) {
+          const { start } = this.parent;
+
+          if (!value || !start) {
+            return true;
+          }
+
+          return new Date(value) >= new Date(start);
+        }
+      ),
     type: yup
       .string()
       .required("Wybierz typ wydarzenia"),

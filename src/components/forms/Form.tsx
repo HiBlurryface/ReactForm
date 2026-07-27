@@ -18,6 +18,18 @@ export const Form = () => {
     formState: { errors },
   } = useForm<EventFormType>({
     resolver: yupResolver(EventFormSchema),
+    defaultValues: {
+      title: "",
+      description: "",
+      start: "",
+      end: "",
+      type: "",
+      city: "",
+      postalCode: "",
+      address: "",
+      link: "",
+      message: "",
+    },
   })
 
   const eventType = watch("type");
@@ -48,7 +60,7 @@ export const Form = () => {
         render={({ field }) => (
           <DatePicker
             name="startEvent"
-            label="Koniec"
+            label="Początek"
             placeholder="0000-00-00"
             value={field.value}
             onChange={field.onChange}
@@ -94,16 +106,16 @@ export const Form = () => {
             placeholder="32-001"
             error={errors.postalCode?.message}
             {...register("postalCode", {
-              onChange: (e) => {
-                let value = e.target.value.replace(/\D/g, "");
+              setValueAs: (value) => {
+                let formatted = value.replace(/\D/g, "");
 
-                value = value.slice(0, 5);
+                formatted = formatted.slice(0, 5);
 
-                if (value.length > 2) {
-                  value = `${value.slice(0, 2)}-${value.slice(2)}`;
+                if (formatted.length > 2) {
+                  formatted = `${formatted.slice(0, 2)}-${formatted.slice(2)}`;
                 }
 
-                e.target.value = value;
+                return formatted;
               },
             })}
           />
