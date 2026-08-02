@@ -10,4 +10,5 @@ export default defineConfig({
     tailwindcss(),
     tsconfigPaths(),
   ],
+  base: '/ReactForm/',
 })
